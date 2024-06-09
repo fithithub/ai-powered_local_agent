@@ -13,14 +13,14 @@ Two options are available: prompting the agent to perform tasks or deleting the 
 - *TableRetriever*: reads a table, either the one containing information of the stock and items or the one containing the record of orders of clients.  
 - *StockUpdate*: updates the stock of a given item. It can be the result of either a purchase or a sale.  
 - *OrdersUpdate*: adds a new record in the table of previous orders. Additionally the agent should call the *StockUpdate* too.
-- *SendMail*: sends an email. The fields "to" and "from" are hardcoded from the *.env* file for security and privacy reasons (EMAIL_ADDRESS = "name@gmail.com", EMAIL_PASSWORD = "XXXX"). 
+- *SendMail*: sends an email. The field "from" and the password for the login should be hardcoded in the *.env* file for security reasons (EMAIL_ADDRESS = "name@gmail.com", EMAIL_PASSWORD = "XXXX"). 
 - *PerformAnalysis*: asks the agent to use the REPL for executing actions that were not provided as tools, such as calculating statistics from the table orders, visualizing the results, and storing them in a folder. It could seem "redundant" but it actually provides robustness to the prompts.
 - *GetWeather*: a discount may be given to clients that apply for it. The condition is that, at the time and place they are applying for the discount, the weather must be grim. In that case, an email is sent to the client explaining how to obtain the markdown, pun intended.  
 - *EasterEgg*: if the user claims to be the lord the teas, T, the agent's discourse changes.
 
 #### **Note**:
- - **From the root of the directory, run the app using the command *streamlit run app.py**
- - **A *.env* file must exist at the root of the directory and it must have the appropriate values (OPENAI_API_KEY="sk-XXXX...") for the correct functioning of the app.**
+ - **From the root of the directory, run the app using the command *streamlit run app.py*.**
+ - **A *.env* file must exist at the root of the directory and it must have the appropriate values (OPENAI_API_KEY="sk-XXXX...") for the correct functioning of the app. Furthermore, the tool *SendMail* also requires two more variables to be in this file.**
  - **Use the *requirements.txt* or *environment.yml* file in the *requirements* folder for installing the Python packages.**
  - **The Python version is 3.11.0.**
  - **Conda 24.1.2 was used for the generation of the environment and the development of the app.**
