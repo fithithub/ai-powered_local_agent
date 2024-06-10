@@ -1,13 +1,8 @@
-# conda activate agent_env
-# cd d:\rag y langchain\02_langchain\streamlit_propio
-# streamlit run app.py
+# run with: streamlit run app.py
 
-# import os
 import random
 from langchain_experimental.tools import PythonREPLTool
 import streamlit as st
-# from langchain_openai import AzureChatOpenAI
-# from langchain.memory import ConversationBufferMemory
 from langchain_core.messages import SystemMessage # , AIMessage, HumanMessage 
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory# , ChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
@@ -22,7 +17,6 @@ from tools import llm_35, llm_4, llm_4o
 
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
-
 
 # id for the session
 session_id = str(random.randint(0, 1e30))
@@ -47,7 +41,6 @@ def clear_chat_history() -> None:
 st.session_state.steps = {}
 
 msgs = StreamlitChatMessageHistory()
-
 
 prompt = hub.pull("hwchase17/openai-functions-agent")
 
@@ -89,7 +82,6 @@ if len(msgs.messages) == 0:
     clear_chat_history()
 
 avatars = {"human": "user", "ai": "assistant", "system":"hide"}
-
 
 # Show chat history
 for idx, msg in enumerate(msgs.messages):
