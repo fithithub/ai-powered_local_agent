@@ -21,18 +21,24 @@ llm_4o = ChatOpenAI(model_name="gpt-4o")
 ############################################################################################################
 
 
+# Tool - TableRetriever: Retrieve a table, either the stock.xlsx or orders.xlsx.
+# The agent can use it to know information about the tables.
 
-
-# Tool - TableRetriever: Muestra una tabla de la BD como un dataframe.
 # Schema
+# Where the inputs for the tool are defined for the agent
 class RetrieveTableInput(BaseModel):
     table_name: str = Field(description="Name_of_table.xlsx")
 
+# Function
+# The function that must execute when the agent calls the tool
 def retrieve_table(table_name: str) -> pd.DataFrame:
     query=table_name
     df = pd.read_excel(query)
     return df
 
+# Tool
+# The complete tool, containing the function to execute, its name, a description for the agent to understand how and when to use it,
+# the inputs, and a special parameter for either finishing the flow when the tool executes or allowing the agent to use more tool
 table_retriever = StructuredTool.from_function(
     func=retrieve_table,
     name="TableRetriever",
@@ -49,12 +55,14 @@ table_retriever = StructuredTool.from_function(
 )
 
 
-
 ############################################################################################################
 
 
-
 # Tool - StockUpdate: Updates the stock of the products table.
+# The agent enters the product, the interaction (either buy or sale) or the quantity.
+# Then the appropriate changes happen automatically thanks to the tool.
+# When buying, the number of units updates but in the case of selling, the 'Accumulated sales' value must be updated too.
+# If less than 10 units are left, the agent warns the user
 
 # Schema
 class StockUpdateInput(BaseModel):
@@ -105,7 +113,11 @@ stock_update = StructuredTool.from_function(
 
 
 # Tool - OrdersUpdate: Add a new order for a product in table orders
+# The agent writes a new registry for a purchase, containig the name of the product, the quantity ordered and the name of the client.
+# The total cost is calculated inside the tool as additional information.
+# In the case of a sale, the agent is prompted to update the stock too. For this situation the parameter *return_direct* is critical
 
+# Schema
 class OrdersUpdateInput(BaseModel):
     product: str = Field(description="Name of the product")
     units: int = Field(description="Ordered quantity")
@@ -142,12 +154,11 @@ order_update = StructuredTool.from_function(
 )
 
 
-
 ############################################################################################################
 
-
-
 # Tool - SendMail: Sends an email (for security reasons, from and password are stored in environment variables)
+# The agent can send an email when known the subject, body and receiver's email address.
+# The agent can in some situations write the body and subject on its own, with basic instructions.
 
 import smtplib
 from email.message import EmailMessage
@@ -193,12 +204,15 @@ mail_sender = StructuredTool.from_function(
 )
 
 
-
 ############################################################################################################
 
 
-
 # Tool - PerformAnalyisis
+# This tool returns guidelines to the agent, giving special robustness to prompts related to plotting images based on the data of the xlsx tables.
+# This tool prompts the agent to use the prebuilt PythonREPLTool, which allows it to write and execute code on its own.
+# The agent is asked for the name of the table to analyze, forcing it to see the names of the columns, 
+# avoiding possible errors when executing code with the REPL.
+# The prompt for the agent recommends using the folder *imgs* for storing images.
 
 # Schema
 class AnalysisSchema(BaseModel):
@@ -237,12 +251,13 @@ do_analysis = StructuredTool.from_function(
 )
 
 
-
 ############################################################################################################
 
 
-
 # Tool - GetWeather
+# This tool is more complex, it outputs a prompt for the agent asking it to take decisions based on real time data.
+# The agent inputs the city and country on which to check the weather and the tool returns the prompt plus the data.
+# Read the output prompt from the function and the description of the tool for a deeper understanding.
 
 # Schema
 class WeatherSchema(BaseModel):
@@ -309,11 +324,12 @@ get_weather = StructuredTool.from_function(
 )
 
 
-
 ############################################################################################################
 
 
 # Tool - Easter egg
+# Some random bug for the agent. Desgined for entertainment purposes.
+# Read the output prompt from the function and the description of the tool for a deeper understanding.
 
 # Schema
 class EESchema(BaseModel):
@@ -342,4 +358,3 @@ ee_tool = StructuredTool.from_function(
     args_schema=EESchema,
     return_direct=False,
 )
-

@@ -6,8 +6,27 @@ The difference with written code that manually differentiates between cases or c
 
 The agents are told in natural language how and when to use the tools. These tools that perform actions can be as simple as sending an email, modifying files, deciding what to do next based on the current context or even coding on a REPL. All these situations are displayed in the app. Even the "knowledge" of the LLM/agent can be further expanded by automatically accessing databases, files or web pages.
 
+Specifically, this code is a provides evidence on how an agent could help a clerk on a tea shop.
+
+### **Structure**:
+The repository needs the *app.py* file for running the streamlit application and the *tools.py* file for the tools. These are loaded from the *app.py*. Additionally, the two excels, *orders.xlsx* and *stock.xlsx* contain information about the stock and the client orders/purchases.
+
+The columns for the *stock* table are the name of the product, the number of current units, the supplier, the category of the product (tea, coffe or herbal tea), the selling price per unit and the number of total sales up to date.
+
+The fields of the *orders* table are the name of the client who made the order, the product purchased, the number of units bought and the total cost of the order. Note that the arrangement of the table forces a single purchase of different products to be registered as different purchases each of a distinct product.
+
+Furthermore, an *imgs* folder is placed for special ocasions (when the agent generates a plot and saves it). 
+
+It is possible to glance at the application without running it thanks to the *examples* folder. This one is divided into two subfolders. The *external_applications* folder showcases how the agent uses external apps such as emails or web pages. The *local_applications* folder contains examples of modifications and creation of local files. Both subfolders contain images and videos displaying the potential of the app. 
+
+The requirements folder contains the needed packages and libraries.
+
 ### **Usage**:  
-Two options are available: prompting the agent to perform tasks or deleting the chat history (and the agent's memory). The memory of the agent, in any case, is virtual and does not last for subsequent executions. The actions that the agent can do are elaborated below.
+ - Install the Python packages and libraries from the *requirements.txt* or *environment.yml* file in the *requirements* folder.
+ - From the root of the directory, run the app using the command *streamlit run app.py*.
+ - A *.env* file must exist at the root of the directory and it must have the appropriate values (OPENAI_API_KEY="sk-XXXX...") for the correct functioning of the app. Furthermore, the tool *SendMail* also requires two more variables to be in this file.
+
+When running the app, at the bottom the user can prompt the agent to perform tasks and the conversation will begin as a normal chatbot would do. There is an option at the top left for deleting the chat history (and the agent's memory). The memory of the agent, in any case, is virtual and does not last for subsequent executions. The actions that the agent can do are elaborated below.
 
 ### **Tools**:  
 - *TableRetriever*: reads a table, either the one containing information of the stock and items or the one containing the record of orders of clients.  
@@ -19,9 +38,6 @@ Two options are available: prompting the agent to perform tasks or deleting the 
 - *EasterEgg*: if the user claims to be the lord the teas, T, the agent's discourse changes.
 
 #### **Note**:
- - **From the root of the directory, run the app using the command *streamlit run app.py*.**
- - **A *.env* file must exist at the root of the directory and it must have the appropriate values (OPENAI_API_KEY="sk-XXXX...") for the correct functioning of the app. Furthermore, the tool *SendMail* also requires two more variables to be in this file.**
- - **Use the *requirements.txt* or *environment.yml* file in the *requirements* folder for installing the Python packages.**
  - **The Python version is 3.11.0.**
  - **Conda 24.1.2 was used for the generation of the environment and the development of the app.**
  - **This work is part of my Master's Thesis.**
