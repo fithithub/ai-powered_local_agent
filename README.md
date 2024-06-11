@@ -38,6 +38,13 @@ When running the app, at the bottom the user can prompt the agent to perform tas
 - *EasterEgg*: if the user claims to be the lord the teas, T, the agent's discourse changes.
 
 #### **Note**:
+ - **The OpenAI API is used, which requires and OpenAI account and calling it has associated costs.**
  - **The Python version is 3.11.0.**
  - **Conda 24.1.2 was used for the generation of the environment and the development of the app.**
  - **This work is part of my Master's Thesis.**
+
+---
+
+Screenshot of the user interface:
+
+![chatbotUI](examples/local_applications/imgs/orders%203.png)
