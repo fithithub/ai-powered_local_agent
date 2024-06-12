@@ -25,6 +25,7 @@ The requirements folder contains the needed packages and libraries.
  - Install the Python packages and libraries from the *requirements.txt* or *environment.yml* file in the *requirements* folder.
  - A *.env* file must exist at the root of the directory and it must have the appropriate values (OPENAI_API_KEY="sk-XXXX...") for the correct functioning of the app. Furthermore, the tool *SendMail* also requires two more variables to be in this file (EMAIL_ADDRESS = "name@gmail.com", EMAIL_PASSWORD = "XXXX").
  - From the root of the directory, run the app using the command *streamlit run app.py*.
+ - If streamlit does not open automatically, a line saying something similar to *Local URL: http://localhost:8501* should have appeared. Enter the URL to see the UI.
 
 When running the app, at the bottom the user can prompt the agent to perform tasks and the conversation will begin as a normal chatbot would do. There is an option at the top left for deleting the chat history (and the agent's memory). The memory of the agent, in any case, is virtual and does not last for subsequent executions. The actions that the agent can do are elaborated below.
 
