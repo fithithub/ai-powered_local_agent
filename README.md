@@ -4,22 +4,25 @@ The purpose of this app is to show the capabilities of AI agents when these have
 
 The difference with written code that manually differentiates between cases or code that leads the flow of the execution is that in this situation (agents with tools) the agent decides on his own which tools (zero or more) are necessary for performing the task at hand. No programming is required beyond creating the tool and the agent.
 
-The agents are told in natural language how and when to use the tools. These tools that perform actions can be as simple as sending an email, modifying files, deciding what to do next based on the current context or even coding on a REPL. All these situations are displayed in the app. Even the "knowledge" of the LLM/agent can be further expanded by automatically accessing databases, files or web pages.
+The agents are told in natural language how and when to use the tools. These tools that perform actions can be as simple as sending an email, modifying files, deciding what to do next based on the current context or even coding on a REPL. All these situations are displayed in the app. Even the "knowledge" of the LLM/agent can be further expanded by automatically accessing databases, files or web pages. Specifically, this code is a provides evidence on how an agent could help a clerk on a tea shop. 
 
-Specifically, this code is a provides evidence on how an agent could help a clerk on a tea shop.
+The image below, extracted from the webpage of [Langchain](https://python.langchain.com/v0.1/docs/use_cases/tool_use/), showcases how agents work. After receiving a query from the user, the agent thinks if a tool is necessary, in which case it parses the inputs for executing the tool. After observing the result, it decides whether to continue calling more tools or giving a final response.
+
+![agent_flow](assets/langchain_agent_flow.png)
 
 ### **Structure**:
-The repository needs the *app.py* file for running the streamlit application and the *tools.py* file for the tools. These are loaded from the *app.py*. Additionally, the two excels, *orders.xlsx* and *stock.xlsx* contain information about the stock and the client orders/purchases.
+The repository contains the following files:
 
-The columns for the *stock* table are the name of the product, the number of current units, the supplier, the category of the product (tea, coffe or herbal tea), the selling price per unit and the number of total sales up to date.
-
-The fields of the *orders* table are the name of the client who made the order, the product purchased, the number of units bought and the total cost of the order. Note that the arrangement of the table forces a single purchase of different products to be registered as different purchases each of a distinct product.
-
-Furthermore, an *imgs* folder is placed for special ocasions (when the agent generates a plot and saves it). 
-
-It is possible to glance at the application without running it thanks to the *examples* folder. This one is divided into two subfolders. The *external_applications* folder showcases how the agent uses external apps such as emails or web pages. The *local_applications* folder contains examples of modifications and creation of local files. Both subfolders contain images and videos displaying the potential of the app. 
-
-The requirements folder contains the needed packages and libraries.
+- *app.py* file for running the streamlit application.
+- *tools.py* file containing the code for executing the tools. These are loaded from the *app.py*.
+- *stock.xlsx* containing information about the products and current stock. The columns are the name of the product, the number of current units, the supplier, the category of the product (tea, coffe or herbal tea), the selling price per unit and the number of total sales up to date.
+- *orders.xlsx*  containing information about the the clients orders/purchases. The columns are the name of the client who made the order, the product purchased, the number of units bought and the total cost of the order. Note that the arrangement of the table forces a single purchase of different products to be registered as different purchases each of a distinct product.
+- *imgs* folder is placed for special occasions (when the agent generates a plot and saves it).
+- *examples* folder to glance at the application without running it thanks to the code. This one is divided into two subfolders containing images and videos displaying the interactions with the chatbot:
+    - *external_applications* showcasing how the agent uses external apps such as emails or web pages.
+    - *local_applications* containing examples of modifications and creations of local files.  
+- *requirements* folder containing the necessary packages and libraries.
+- *assets* folder with an image displaying the flow of an agent.
 
 ### **Usage**:  
  - Install the Python packages and libraries from the *requirements.txt* or *environment.yml* file in the *requirements* folder.
